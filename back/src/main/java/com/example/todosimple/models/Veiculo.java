@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = Veiculo.TABLE_NAME)
 public class Veiculo {
-    public interface ICreateVeiculo {}
-    public interface IUpdateVeiculo {}
+    public interface ICreateVeiculo {
+    }
+
+    public interface IUpdateVeiculo {
+    }
 
     public static final String TABLE_NAME = "Veiculo";
 
@@ -45,12 +48,17 @@ public class Veiculo {
     @Size(groups = ICreateVeiculo.class, min = 3, max = 20)
     private String tipoVeiculo;
 
+    @Column(name = "observacoes")
+    @Size(groups = ICreateVeiculo.class, max = 300)
+    private String observacoes;
+
     @ManyToMany(mappedBy = "veiculos")
-    @JsonIgnoreProperties({"veiculos"})
+    @JsonIgnoreProperties({ "veiculos" })
     private Set<Servico> servicos = new HashSet<>();
 
     // Construtores
-    public Veiculo() {}
+    public Veiculo() {
+    }
 
     public Veiculo(String placa, String modelo, Long ano, String status, String tipoVeiculo) {
         this.placa = placa;
@@ -58,6 +66,14 @@ public class Veiculo {
         this.ano = ano;
         this.status = status;
         this.tipoVeiculo = tipoVeiculo;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
     // Getters e Setters
@@ -111,8 +127,10 @@ public class Veiculo {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         Veiculo veiculo = (Veiculo) obj;
         return Objects.equals(placa, veiculo.placa);
     }

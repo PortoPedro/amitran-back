@@ -27,8 +27,8 @@ public class VeiculoService {
         return veiculo.orElseThrow(() -> new RuntimeException(
                 "Veiculo não foi encontrado! Placa: " + placa + ", tipo: " + Veiculo.class.getName()));
     }
-    
-    public List<Veiculo> findAllV(){
+
+    public List<Veiculo> findAllV() {
         return veiculoRepository.findAll();
     }
 
@@ -46,6 +46,7 @@ public class VeiculoService {
         novoObj.setStatus(obj.getStatus());
         novoObj.setModelo(obj.getModelo());
         novoObj.setServicos(obj.getServicos());
+        novoObj.setObservacoes(obj.getObservacoes());
         return this.veiculoRepository.save(novoObj);
     }
 
